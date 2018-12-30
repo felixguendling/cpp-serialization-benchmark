@@ -1,0 +1,20 @@
+namespace graph;
+
+table Node {
+  id:uint;
+  name:string;
+  out_edges:[Edge];
+  in_edges:[Edge];
+}
+
+table Edge {
+  to_node_id:uint;
+  from_node_id:uint;
+  weight:uint;
+}
+
+table Graph {
+  nodes:[Node];
+}
+
+root_type Graph;

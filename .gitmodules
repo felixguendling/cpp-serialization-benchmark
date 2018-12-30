@@ -1,0 +1,12 @@
+[submodule "external_lib/google-benchmark"]
+	path = external_lib/google-benchmark
+	url = git@github.com:google/benchmark.git
+[submodule "external_lib/flatbuffers"]
+	path = external_lib/flatbuffers
+	url = git@github.com:google/flatbuffers.git
+[submodule "external_lib/capnproto"]
+	path = external_lib/capnproto
+	url = git@github.com:felixguendling/capnproto.git
+[submodule "external_lib/cereal"]
+	path = external_lib/cereal
+	url = git@github.com:USCiLab/cereal.git
