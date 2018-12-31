@@ -15,10 +15,13 @@ unsigned traverse_forward(Graph const& g) {
     auto const next = todo.back();
     todo.resize(todo.size() - 1);
 
+    auto edge_count = 0u;
     Graph::for_each_out_edge(next, [&](auto&& e) {
+      ++edge_count;
       auto const target = g.get_target(e);
       if (visited.emplace(target).second) {
         todo.emplace_back(target);
+      } else {
       }
     });
   }

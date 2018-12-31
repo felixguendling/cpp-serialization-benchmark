@@ -8,8 +8,8 @@ table Node {
 }
 
 table Edge {
-  to_node_id:uint;
   from_node_id:uint;
+  to_node_id:uint;
   weight:uint;
 }
 
