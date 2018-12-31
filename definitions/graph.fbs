@@ -1,16 +1,16 @@
 namespace graph;
 
 table Node {
-  id:uint;
+  id:ushort;
   name:string;
   out_edges:[Edge];
   in_edges:[Edge];
 }
 
 table Edge {
-  from_node_id:uint;
-  to_node_id:uint;
-  weight:uint;
+  from_node_id:ushort;
+  to_node_id:ushort;
+  weight:ushort;
 }
 
 table Graph {
