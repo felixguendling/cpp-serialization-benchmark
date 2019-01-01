@@ -95,9 +95,10 @@ struct capnp_bench {
 
   unsigned traverse() { return traverse_forward(wrapper{reader_}); }
 
-  static constexpr bool skip_fast_deserialize() { return true; }
-
   size_t serialized_size() const { return serialized_.size(); }
+
+  void backup() {}
+  void restore() {}
 
   kj::Array<capnp::word> serialized_;
   std::unique_ptr<capnp::FlatArrayMessageReader> message_;

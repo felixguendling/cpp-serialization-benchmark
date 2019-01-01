@@ -21,27 +21,27 @@ void BM_SERIALIZE(benchmark::State& state) {
 template <typename Bench>
 void BM_SAFE_DESERIALIZE(benchmark::State& state) {
   Bench b;
+  b.serialize();
+  b.backup();
   for (auto _ : state) {
     state.PauseTiming();
-    b.serialize();
+    b.restore();
     state.ResumeTiming();
+
     b.deserialize();
   }
 }
 
 template <typename Bench>
 void BM_FAST_DESERIALIZE(benchmark::State& state) {
-  if constexpr (Bench::skip_fast_deserialize()) {
-    for (auto _ : state) {
-    }
-    return;
-  }
-
   Bench b;
+  b.serialize();
+  b.backup();
   for (auto _ : state) {
     state.PauseTiming();
-    b.serialize();
+    b.restore();
     state.ResumeTiming();
+
     b.deserialize_fast();
   }
 }
@@ -50,11 +50,13 @@ template <typename Bench>
 void BM_FAST_DESERIALIZE_AND_TRAVERSE(benchmark::State& state) {
   Bench b;
   b.serialize();
-  unsigned node_count;
+  b.backup();
+  auto node_count = 0u;
   for (auto _ : state) {
     state.PauseTiming();
-    b.serialize();
+    b.restore();
     state.ResumeTiming();
+
     b.deserialize_fast();
     node_count = b.traverse();
   }
@@ -74,16 +76,18 @@ void BM_TRAVERSE(benchmark::State& state) {
 }
 
 BENCHMARK_TEMPLATE(BM_SERIALIZE, capnp_bench)->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_SERIALIZE, cista_offset_slim_bench)
+    ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_SERIALIZE, cereal_bench)->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_SERIALIZE, fbs_bench)->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_SERIALIZE, cista_raw_bench)
     ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_SERIALIZE, cista_offset_bench)
     ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_SERIALIZE, cista_offset_slim_bench)
-    ->Unit(benchmark::kMillisecond);
 
 BENCHMARK_TEMPLATE(BM_SAFE_DESERIALIZE, capnp_bench)
+    ->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_SAFE_DESERIALIZE, cista_offset_slim_bench)
     ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_SAFE_DESERIALIZE, fbs_bench)
     ->Unit(benchmark::kMillisecond);
@@ -93,42 +97,43 @@ BENCHMARK_TEMPLATE(BM_SAFE_DESERIALIZE, cista_raw_bench)
     ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_SAFE_DESERIALIZE, cereal_bench)
     ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_SAFE_DESERIALIZE, cista_offset_slim_bench)
-    ->Unit(benchmark::kMillisecond);
 
+/* Nothing to benchmark here: it's essentially a pointer cast.
+BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, cista_offset_slim_bench)
+    ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, cista_offset_bench)
     ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, fbs_bench)
     ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, capnp_bench)
     ->Unit(benchmark::kMillisecond);
+*/
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, cista_raw_bench)
     ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, cereal_bench)
-    ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, cista_offset_slim_bench)
-    ->Unit(benchmark::kMillisecond);
+// There is no "unsafe / fast" deserialize for cereal.
+// BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE, cereal_bench)
+//     ->Unit(benchmark::kMillisecond);
 
 BENCHMARK_TEMPLATE(BM_TRAVERSE, cista_raw_bench)->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_TRAVERSE, cereal_bench)->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_TRAVERSE, cista_offset_bench)
-    ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_TRAVERSE, fbs_bench)->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_TRAVERSE, capnp_bench)->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_TRAVERSE, cista_offset_slim_bench)
     ->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_TRAVERSE, cista_offset_bench)
+    ->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_TRAVERSE, cereal_bench)->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_TRAVERSE, fbs_bench)->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_TRAVERSE, capnp_bench)->Unit(benchmark::kMillisecond);
 
+BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, cista_offset_slim_bench)
+    ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, cista_offset_bench)
-    ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, fbs_bench)
-    ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, capnp_bench)
     ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, cista_raw_bench)
     ->Unit(benchmark::kMillisecond);
+BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, fbs_bench)
+    ->Unit(benchmark::kMillisecond);
 BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, cereal_bench)
     ->Unit(benchmark::kMillisecond);
-BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, cista_offset_slim_bench)
+BENCHMARK_TEMPLATE(BM_FAST_DESERIALIZE_AND_TRAVERSE, capnp_bench)
     ->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();

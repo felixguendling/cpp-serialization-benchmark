@@ -6,7 +6,7 @@ template <typename Node>
 struct basic_edge {
   using node_ptr = typename Node::template ptr_t<Node>;
   node_ptr from_{nullptr}, to_{nullptr};
-  unsigned weight_{0u};
+  uint16_t weight_{0u};
 };
 
 template <typename String,  //
@@ -18,7 +18,7 @@ struct basic_node {
   template <typename T>
   using ptr_t = Ptr<T>;
 
-  unsigned id_{0u};
+  uint16_t id_{0u};
   String name_;
   Vector<Ptr<edge_t>> out_edges_;
   Vector<Ptr<edge_t>> in_edges_;
@@ -43,8 +43,8 @@ struct basic_graph {
         .get();
   }
 
-  Ptr<graph_edge_t> make_edge(unsigned const from_id, unsigned const to_id,
-                              unsigned const weight) {
+  Ptr<graph_edge_t> make_edge(uint16_t const from_id, uint16_t const to_id,
+                              uint16_t const weight) {
     auto const from = nodes_[from_id].get();
     auto const to = nodes_[to_id].get();
     auto const e =
@@ -74,7 +74,7 @@ struct basic_graph {
 
   Vector<UniquePtr<graph_node_t>> nodes_;
   Vector<UniquePtr<graph_edge_t>> edges_;
-  unsigned next_node_id_{0};
+  uint16_t next_node_id_{0};
 };
 
 }  // namespace csb

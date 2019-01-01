@@ -19,17 +19,17 @@ struct cereal_bench {
         a(from_, to_, weight_);
       }
 
-      uint64_t from_, to_;
-      uint32_t weight_;
+      uint16_t from_, to_;
+      uint16_t weight_;
     };
     struct node {
       template <class A>
       void serialize(A& a) {
-        a(name_, id_, out_edges_, in_edges_);
+        a(id_, name_, out_edges_, in_edges_);
       }
 
+      uint16_t id_;
       std::string name_;
-      uint32_t id_;
       std::vector<edge> out_edges_;
       std::vector<edge> in_edges_;
     };
@@ -92,11 +92,13 @@ struct cereal_bench {
 
   unsigned traverse() { return traverse_forward(deserialized_); }
 
-  static constexpr bool skip_fast_deserialize() { return false; }
-
   size_t serialized_size() const { return ss_.str().size(); }
 
+  void backup() { backup_ = ss_.str(); }
+  void restore() { ss_.str(backup_); }
+
   std::stringstream ss_;
+  std::string backup_;
   graph deserialized_;
 };
 

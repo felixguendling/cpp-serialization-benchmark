@@ -16,7 +16,7 @@ inline Graph generate_graph(unsigned const size, double const connectedness) {
       };
   auto name = [&rng, char_dist = std::uniform_int_distribution<char>{'a', 'z'},
                length_dist =
-                   std::uniform_int_distribution<unsigned>{5, 20}]() mutable {
+                   std::uniform_int_distribution<uint16_t>{5, 20}]() mutable {
     typename Graph::string_t s;
     s.resize(length_dist(rng));
     for (auto& c : s) {
@@ -24,7 +24,7 @@ inline Graph generate_graph(unsigned const size, double const connectedness) {
     }
     return s;
   };
-  auto edge_weight = [&rng, dist = std::uniform_int_distribution<unsigned>{
+  auto edge_weight = [&rng, dist = std::uniform_int_distribution<uint16_t>{
                                 0, 1000}]() mutable { return dist(rng); };
 
   Graph g;

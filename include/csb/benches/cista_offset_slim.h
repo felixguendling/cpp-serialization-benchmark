@@ -89,8 +89,10 @@ struct cista_offset_slim_bench {
     g_ = cista::offset::unchecked_deserialize<graph>(buf_);
   }
   unsigned traverse() { return traverse_forward(*g_); }
-  static constexpr bool skip_fast_deserialize() { return true; }
   size_t serialized_size() const { return buf_.size(); }
+
+  void backup() {}
+  void restore() {}
 
   std::vector<uint8_t> buf_;
   graph* g_;

@@ -2,7 +2,7 @@
 
 namespace csb {
 
-constexpr auto const GRAPH_SIZE = 2000u;
-constexpr auto const CONNECTEDNESS = 0.9;
+constexpr auto const GRAPH_SIZE = 1800u;
+constexpr auto const CONNECTEDNESS = 0.8;
 
 }  // namespace csb

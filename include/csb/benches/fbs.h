@@ -69,9 +69,10 @@ struct fbs_bench {
     return traverse_forward(wrapper(fbb_.GetBufferPointer()));
   }
 
-  static constexpr bool skip_fast_deserialize() { return true; }
-
   size_t serialized_size() const { return fbb_.GetSize(); }
+
+  void backup() {}
+  void restore() {}
 
   flatbuffers::FlatBufferBuilder fbb_;
 };

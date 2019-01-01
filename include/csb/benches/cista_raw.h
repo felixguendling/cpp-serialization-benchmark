@@ -14,10 +14,12 @@ struct cista_raw_bench {
     g_ = cista::raw::unchecked_deserialize<cista_raw_graph>(buf_);
   }
   unsigned traverse() { return traverse_forward(*g_); }
-  static constexpr bool skip_fast_deserialize() { return false; }
   size_t serialized_size() const { return buf_.size(); }
 
-  std::vector<uint8_t> buf_;
+  void backup() { backup_ = buf_; }
+  void restore() { buf_ = backup_; }
+
+  std::vector<uint8_t> buf_, backup_;
   cista_raw_graph* g_;
 };
 
