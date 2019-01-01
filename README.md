@@ -28,13 +28,13 @@ This repository compares the following C++ binary serialization libraries:
 
 To run the benchmarks you need a C++17 compatible compiler and CMake. Tested on Mac OS X (but Linux should be fine, too).
 
-   git clone --recursive github.com:felixguendling/cpp-serialization-benchmark.git
-   cd cpp-serialization-benchmark
-   mkdir build
-   cd build
-   cmake -DCMAKE_BUILD_TYPE=Release ..
-   make
-   ./cpp-serialization-benchmark
+    git clone --recursive github.com:felixguendling/cpp-serialization-benchmark.git
+    cd cpp-serialization-benchmark
+    mkdir build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    make
+    ./cpp-serialization-benchmark
 
 
 # Results
