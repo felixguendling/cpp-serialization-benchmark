@@ -49,6 +49,8 @@ To run the benchmarks you need a C++17 compatible compiler and CMake. Tested on 
 
 Cista++ `offset` describes the "slim" variant (where the edges use indices to reference source and target node instead of pointers).
 
+Benchmarks were run on Mac OS X, compiled with Clang 7.
+
 # Contribute
 
 You have found a mistake/bug or want to contribute new benchmarks? Feel free to open an issue/pull request! :smiley:
