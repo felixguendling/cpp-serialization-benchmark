@@ -95,7 +95,7 @@ struct capnp_bench {
 
   unsigned traverse() { return traverse_forward(wrapper{reader_}); }
 
-  size_t serialized_size() const { return serialized_.size(); }
+  size_t serialized_size() const { return serialized_.asBytes().size(); }
 
   void backup() {}
   void restore() {}
