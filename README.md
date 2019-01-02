@@ -42,10 +42,10 @@ To run the benchmarks you need a C++17 compatible compiler and CMake. Tested on 
 | Library                                               | Serialize    | Deserialize   | Fast Deserialize | Traverse | Deserialize & Traverse |  Size  |
 | :---                                                  |         ---: |          ---: |             ---: |     ---: |                   ---: |   ---: |
 | [Cap’n Proto](https://capnproto.org/capnp-tool.html)  |       105 ms |      0.002 ms |           0.0 ms |   356 ms |                 353 ms |  50.5M |
-| [Flatbuffers](https://google.github.io/flatbuffers/)  |      2349 ms |     15.400 ms |           0.0 ms |   136 ms |                 133 ms | 378.0M |
 | [cereal](https://uscilab.github.io/cereal/index.html) |       239 ms |    197.000 ms |                - |   125 ms |                 322 ms |  37.8M |
 | [Cista++](https://cista.rocks/) `offset`              |        72 ms |      0.053 ms |           0.0 ms |   132 ms |                 132 ms |  25.3M |
 | [Cista++](https://cista.rocks/) `raw`                 |      3555 ms |     68.900 ms |          21.5 ms |   112 ms |                 133 ms | 176.4M |
+| [Flatbuffers](https://google.github.io/flatbuffers/)  |      2349 ms |     15.400 ms |           0.0 ms |   136 ms |                 133 ms | 378.0M |
 
 Cista++ `offset` describes the "slim" variant (where the edges use indices to reference source and target node instead of pointers).
 
