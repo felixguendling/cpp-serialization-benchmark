@@ -80,6 +80,7 @@ static cereal_graph CEREAL_GRAPH =
 
 struct cereal_bench {
   void serialize() {
+    ss_.str("");
     cereal::BinaryOutputArchive oarchive(ss_);
     oarchive(CEREAL_GRAPH);
   }
