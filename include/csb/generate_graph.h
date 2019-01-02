@@ -9,11 +9,13 @@ namespace csb {
 template <typename Graph>
 inline Graph generate_graph(unsigned const size, double const connectedness) {
   auto rng = std::mt19937{};
-  auto is_connected =
-      [&connectedness, &rng,
-       dist = std::uniform_int_distribution<double>{0.0, 1.0}]() mutable {
-        return dist(rng) <= connectedness;
-      };
+  auto is_connected = [&connectedness, &rng,
+                       dist = std::uniform_int_distribution<uint32_t>{
+                           0, std::numeric_limits<uint32_t>::max()}]() mutable {
+    return dist(rng) /
+               static_cast<double>(std::numeric_limits<uint32_t>::max()) <=
+           connectedness;
+  };
   auto name = [&rng, char_dist = std::uniform_int_distribution<char>{'a', 'z'},
                length_dist =
                    std::uniform_int_distribution<uint16_t>{5, 20}]() mutable {
