@@ -4,7 +4,8 @@
 
 #include "csb/generate_graph.h"
 #include "csb/graph.h"
-#include "csb/graph_constants.h"
+
+#include "graph_constants.h"
 
 namespace csb {
 

@@ -2,8 +2,8 @@
 
 namespace csb {
 
-constexpr auto const GRAPH_SIZE = 1870u;
-constexpr auto const CONNECTEDNESS = 0.9;
+#define GRAPH_SIZE @GRAPH_SIZE@
+#define CONNECTEDNESS @CONNECTEDNESS@ / 100.0
 
 // Node IDs: 11 bits (2048 max)
 // Edge weights: 10 bits (1024 max)

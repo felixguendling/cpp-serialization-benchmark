@@ -3,9 +3,10 @@
 #include "cista.h"
 
 #include "csb/generate_graph.h"
-#include "csb/graph_constants.h"
 #include "csb/std_graph.h"
 #include "csb/traverse_graph.h"
+
+#include "graph_constants.h"
 
 namespace cista::offset {
 

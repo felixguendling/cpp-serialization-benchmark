@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(GRAPH_SIZE 1870 CACHE INTERNAL "Node count")
+set(CONNECTEDNESS 90 CACHE INTERNAL "To how many nodes is a node connected [0.0-1.0]")
+configure_file(include/csb/graph_constants.h.in graph_constants.h)
+
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "disable tests" FORCE)
 set(CAPNP_LITE OFF CACHE BOOL "no reflection" FORCE)
 add_subdirectory(external_lib/flatbuffers EXCLUDE_FROM_ALL)
