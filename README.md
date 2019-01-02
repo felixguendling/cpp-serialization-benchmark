@@ -41,7 +41,7 @@ To run the benchmarks you need a C++17 compatible compiler and CMake. Tested on 
 
 | Library                                                 | Serialize    | Deserialize   | Fast Deserialize | Traverse      | Deserialize & Traverse |    Size  |
 | :---                                                    |         ---: |          ---: |             ---: |          ---: |                   ---: |       ---: |
-| [Cap’n Proto](https://capnproto.org/capnp-tool.html)    |        50 ms |      0.002 ms |           0.0 ms |      193.0 ms |               193.0 ms |     3.3M |
+| [Cap’n Proto](https://capnproto.org/capnp-tool.html)    |        50 ms |      0.002 ms |           0.0 ms |      193.0 ms |               193.0 ms |    26.1M |
 | [Flatbuffers](https://google.github.io/flatbuffers/)    |      1166 ms |     15.200 ms |           0.0 ms |       79.8 ms |                80.3 ms |    32.5M |
 | [cereal](https://uscilab.github.io/cereal/index.html)   |       191 ms |    102.000 ms |                - |       72.5 ms |               177.0 ms |    78.0M |
 | [Cista++](https://cista.rocks/) `offset`                |       105 ms |      0.048 ms |           0.0 ms |       71.0 ms |                70.7 ms |    13.1M |
