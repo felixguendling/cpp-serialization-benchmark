@@ -49,6 +49,8 @@ To run the benchmarks you need a C++17 compatible compiler and CMake. Tested on 
 
 Cista++ `offset` describes the "slim" variant (where the edges use indices to reference source and target node instead of pointers).
 
+Exact results can be found [here](https://github.com/felixguendling/cpp-serialization-benchmark/blob/master/benchmark_result.txt).
+
 Benchmarks were run on Mac OS X, compiled with Clang 7.
 
 
