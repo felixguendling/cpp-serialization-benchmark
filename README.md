@@ -1,4 +1,4 @@
-# C++ Serialization Benchmark
+# C++ Serialization Benchmark  [![Build Status](https://travis-ci.org/felixguendling/cpp-serialization-benchmark.svg?branch=master)](https://travis-ci.org/felixguendling/cpp-serialization-benchmark)
 
 This benchmark suite accompanies the public release of the [Cista++](https://cista.rocks/) serialization library.
 
