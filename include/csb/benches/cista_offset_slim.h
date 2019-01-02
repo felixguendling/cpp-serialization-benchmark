@@ -2,6 +2,8 @@
 
 #include "cista.h"
 
+#include "csb/generate_graph.h"
+#include "csb/graph_constants.h"
 #include "csb/std_graph.h"
 #include "csb/traverse_graph.h"
 
@@ -20,73 +22,72 @@ inline auto to_vec(Container const& c, UnaryOperation&& op)
 
 namespace csb {
 
-struct cista_offset_slim_bench {
-  struct graph {
-    struct edge {
-      uint32_t from_ : 11;
-      uint32_t to_ : 11;
-      uint32_t weight_ : 10;
-    };
+struct slim_graph {
+  using string_t = cista::offset::string;
 
-    template <typename Ctx>
-    friend void serialize(Ctx&, edge const*, cista::offset_t const) {}
-    friend void deserialize(cista::deserialization_context const&, edge*) {}
-    friend void unchecked_deserialize(cista::deserialization_context const&,
-                                      edge*) {}
-
-    struct node {
-      uint32_t id_;
-      cista::offset::string name_;
-      cista::offset::vector<edge> out_;
-      cista::offset::vector<edge> in_;
-    };
-
-    using node_t = node const*;
-    using edge_t = edge;
-
-    template <typename Fn>
-    static void for_each_out_edge(node_t n, Fn&& f) {
-      for (auto const& e : n->out_) {
-        f(e);
-      }
-    }
-
-    template <typename Fn>
-    static void for_each_in_edge(node_t n, Fn&& f) {
-      for (auto const& e : n->in_) {
-        f(e);
-      }
-    }
-
-    node_t get_target(edge_t e) const { return &nodes_[e.to_]; }
-    node_t get_node(unsigned node_id) const { return &nodes_[node_id]; }
-
-    cista::offset::vector<node> nodes_;
+  struct edge {
+    uint32_t from_ : 11;
+    uint32_t to_ : 11;
+    uint32_t weight_ : 10;
   };
 
-  void serialize() {
-    graph g;
-    g.nodes_.resize(GRAPH.nodes_.size());
+  template <typename Ctx>
+  friend void serialize(Ctx&, edge const*, cista::offset_t const) {}
+  friend void deserialize(cista::deserialization_context const&, edge*) {}
+  friend void unchecked_deserialize(cista::deserialization_context const&,
+                                    edge*) {}
 
-    auto node_id = 0u;
-    for (auto const& node : GRAPH.nodes_) {
-      auto& n = g.nodes_[node_id++];
-      n.name_.set_non_owning(node->name_.c_str(), node->name_.length());
-      n.id_ = node->id_;
-      n.out_ = cista::offset::to_vec(node->out_edges_, [](auto&& e) {
-        return graph::edge{static_cast<uint16_t>(e->from_->id_),
-                           static_cast<uint16_t>(e->to_->id_), e->weight_};
-      });
-      n.in_ = cista::offset::to_vec(node->in_edges_, [](auto&& e) {
-        return graph::edge{static_cast<uint16_t>(e->from_->id_),
-                           static_cast<uint16_t>(e->to_->id_), e->weight_};
-      });
-    }
-    buf_ = cista::serialize(g);
+  struct node {
+    uint16_t id_;
+    uint16_t __fill_0_{0};
+    uint32_t __fill_1_{0};
+    cista::offset::string name_;
+    cista::offset::vector<edge> out_;
+    cista::offset::vector<edge> in_;
+  };
+
+  using node_t = node const*;
+  using edge_t = edge;
+
+  void make_node(cista::offset::string name) {
+    nodes_.emplace_back(node{next_node_id_++, 0, 0, std::move(name)});
   }
-  void deserialize() { g_ = cista::offset::deserialize<graph>(buf_); }
+
+  void make_edge(uint16_t const from_id, uint16_t const to_id,
+                 uint16_t const weight) {
+    nodes_[from_id].out_.emplace_back(edge{from_id, to_id, weight});
+    nodes_[to_id].in_.emplace_back(edge{from_id, to_id, weight});
+  }
+
+  template <typename Fn>
+  static void for_each_out_edge(node_t n, Fn&& f) {
+    for (auto const& e : n->out_) {
+      f(e);
+    }
+  }
+
+  template <typename Fn>
+  static void for_each_in_edge(node_t n, Fn&& f) {
+    for (auto const& e : n->in_) {
+      f(e);
+    }
+  }
+
+  node_t get_target(edge_t e) const { return &nodes_[e.to_]; }
+  node_t get_node(unsigned node_id) const { return &nodes_[node_id]; }
+
+  cista::offset::vector<node> nodes_;
+  uint16_t next_node_id_{0};
+};
+
+static slim_graph SLIM_GRAPH =
+    generate_graph<slim_graph>(GRAPH_SIZE, CONNECTEDNESS);
+
+struct cista_offset_slim_bench {
+  void serialize() { buf_ = cista::serialize(SLIM_GRAPH); }
+  void deserialize() { g_ = cista::offset::deserialize<slim_graph>(buf_); }
   void deserialize_fast() {
-    g_ = cista::offset::unchecked_deserialize<graph>(buf_);
+    g_ = cista::offset::unchecked_deserialize<slim_graph>(buf_);
   }
   unsigned traverse() { return traverse_forward(*g_); }
   size_t serialized_size() const { return buf_.size(); }
@@ -95,7 +96,7 @@ struct cista_offset_slim_bench {
   void restore() {}
 
   std::vector<uint8_t> buf_;
-  graph* g_;
+  slim_graph* g_;
 };
 
 }  // namespace csb
