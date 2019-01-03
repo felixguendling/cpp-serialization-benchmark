@@ -26,3 +26,7 @@ script:
   - cmake -GNinja -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DGRAPH_SIZE=$GRAPH_SIZE ..
   - ninja
   - ./cpp-serialization-benchmark --benchmark_min_time=0.0001
+  - ./cista-compile-time
+  - ./capnp-compile-time
+  - ./fbs-compile-time
+  - ./cereal-compile-time

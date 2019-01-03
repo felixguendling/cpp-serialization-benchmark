@@ -54,6 +54,18 @@ Exact results can be found [here](https://github.com/felixguendling/cpp-serializ
 Benchmarks were run on Mac OS X, compiled with Clang 7.
 
 
+## Compilation Times
+
+Compilation times are measured with code generation but without building the code generators or static libraries (Cap’n Proto, Flatbuffers).
+
+| Library                                               | clang-7 on Mac OS X |
+| :---                                                  |                ---: |
+| [Cap’n Proto](https://capnproto.org/capnp-tool.html)  |              0.440s |
+| [cereal](https://uscilab.github.io/cereal/index.html) |              1.827s |
+| [Cista++](https://cista.rocks/) `raw`                 |              1.351s |
+| [Flatbuffers](https://google.github.io/flatbuffers/)  |              0.857s |
+
+
 # Contribute
 
 You have found a mistake/bug or want to contribute new benchmarks? Feel free to open an issue/pull request! :smiley:

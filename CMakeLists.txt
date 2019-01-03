@@ -39,6 +39,7 @@ add_custom_command(
 )
 
 add_executable(cpp-serialization-benchmark
+  ${CMAKE_CURRENT_BINARY_DIR}/graph.capnp.h
   ${CMAKE_CURRENT_BINARY_DIR}/graph.capnp.c++
   ${CMAKE_CURRENT_BINARY_DIR}/graph_generated.h
   src/main.cc
@@ -54,3 +55,25 @@ target_include_directories(cpp-serialization-benchmark PUBLIC
   include
   ${CMAKE_CURRENT_BINARY_DIR}
 )
+
+add_executable(cista-compile-time src/cista.cc)
+target_link_libraries(cista-compile-time cista)
+
+add_executable(capnp-compile-time
+  ${CMAKE_CURRENT_BINARY_DIR}/graph.capnp.h
+  ${CMAKE_CURRENT_BINARY_DIR}/graph.capnp.c++
+  src/capnp.cc)
+target_link_libraries(capnp-compile-time capnp)
+target_include_directories(capnp-compile-time PUBLIC
+  ${CMAKE_CURRENT_BINARY_DIR})
+
+add_executable(cereal-compile-time src/cereal.cc)
+target_link_libraries(cereal-compile-time cereal)
+
+add_executable(fbs-compile-time
+  src/fbs.cc
+  ${CMAKE_CURRENT_BINARY_DIR}/graph_generated.h
+)
+target_link_libraries(fbs-compile-time flatbuffers)
+target_include_directories(fbs-compile-time PUBLIC
+  ${CMAKE_CURRENT_BINARY_DIR})

@@ -35,3 +35,36 @@ BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_raw_bench>                133 ms         
 BM_FAST_DESERIALIZE_AND_TRAVERSE<fbs_bench>                      133 ms          133 ms          103 nodeCount=1.87k
 BM_FAST_DESERIALIZE_AND_TRAVERSE<cereal_bench>                   322 ms          322 ms           43 nodeCount=1.87k
 BM_FAST_DESERIALIZE_AND_TRAVERSE<capnp_bench>                    353 ms          353 ms           39 nodeCount=1.87k
+
+
+$ time ninja cista-compile-time
+[1/2] Building CXX object CMakeFiles/cista-compile-time.dir/src/cista.cc.o
+        1.26 real         1.19 user         0.06 sys
+[2/2] Linking CXX executable cista-compile-time
+        0.04 real         0.02 user         0.01 sys
+ninja cista-compile-time  1.25s user 0.09s system 99% cpu 1.351 total
+$ time ninja capnp-compile-time
+[2/4] Building CXX object CMakeFiles/capnp-compile-time.dir/graph.capnp.c++.o
+        0.21 real         0.18 user         0.02 sys
+[3/4] Building CXX object CMakeFiles/capnp-compile-time.dir/src/capnp.cc.o
+        0.30 real         0.27 user         0.02 sys
+[4/4] Linking CXX executable capnp-compile-time
+        0.05 real         0.03 user         0.01 sys
+ninja capnp-compile-time  0.54s user 0.10s system 144% cpu 0.440 total
+$ time ninja cereal-compile-time
+[1/2] Building CXX object CMakeFiles/cereal-compile-time.dir/src/cereal.cc.o
+        1.74 real         1.65 user         0.07 sys
+[2/2] Linking CXX executable cereal-compile-time
+        0.04 real         0.02 user         0.01 sys
+ninja cereal-compile-time  1.71s user 0.10s system 99% cpu 1.827 total
+$ time ninja fbs-compile-time
+[2/3] Building CXX object CMakeFiles/fbs-compile-time.dir/src/fbs.cc.o
+        0.76 real         0.71 user         0.04 sys
+[3/3] Linking CXX executable fbs-compile-time
+        0.04 real         0.02 user         0.01 sys
+ninja fbs-compile-time  0.77s user 0.08s system 98% cpu 0.857 total
+
+capnp  0.440
+fbs    0.857
+cista  1.351
+cereal 1.827
