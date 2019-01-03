@@ -28,5 +28,5 @@ script:
   - ./cpp-serialization-benchmark --benchmark_min_time=0.0001
   - ./cista-compile-time
   - ./capnp-compile-time
-  - ./fbs-compile-time
+# - ./fbs-compile-time
   - ./cereal-compile-time
