@@ -37,6 +37,68 @@ BM_FAST_DESERIALIZE_AND_TRAVERSE<cereal_bench>                   322 ms         
 BM_FAST_DESERIALIZE_AND_TRAVERSE<capnp_bench>                    353 ms          353 ms           39 nodeCount=1.87k
 
 
+Intel(R) Core(TM) i7-6850K CPU @ 3.60GHz, GCC 7.2.0
+---------------------------------------------------------------------------------------------------------------------
+Benchmark                                                          Time             CPU   Iterations UserCounters...
+---------------------------------------------------------------------------------------------------------------------
+BM_SERIALIZE<capnp_bench>                                       97.6 ms         97.6 ms           72 size=50.5093M
+BM_SERIALIZE<cista_offset_slim_bench>                           17.8 ms         17.8 ms          393 size=25.3182M
+BM_SERIALIZE<cereal_bench>                                       322 ms          322 ms           21 size=37.829M
+BM_SERIALIZE<fbs_bench>                                         2260 ms         2260 ms            3 size=188.994M
+BM_SERIALIZE<cista_raw_bench>                                   2892 ms         2892 ms            2 size=176.383M
+BM_SERIALIZE<cista_offset_bench>                                3017 ms         3015 ms            2 size=176.383M
+BM_SAFE_DESERIALIZE<capnp_bench>                               0.000 ms        0.001 ms     10000000
+BM_SAFE_DESERIALIZE<cista_offset_slim_bench>                   0.070 ms        0.070 ms       110661
+BM_SAFE_DESERIALIZE<fbs_bench>                                  63.4 ms         63.4 ms          110
+BM_SAFE_DESERIALIZE<cista_offset_bench>                         60.3 ms         60.3 ms          116
+BM_SAFE_DESERIALIZE<cista_raw_bench>                            63.8 ms         63.8 ms          109
+BM_SAFE_DESERIALIZE<cereal_bench>                                295 ms          295 ms           24
+BM_FAST_DESERIALIZE<cista_raw_bench>                            17.0 ms         17.0 ms          412
+BM_TRAVERSE<cista_raw_bench>                                     177 ms          177 ms           39 nodeCount=1.87k
+BM_TRAVERSE<cista_offset_slim_bench>                             170 ms          170 ms           41 nodeCount=1.87k
+BM_TRAVERSE<cista_offset_bench>                                  165 ms          165 ms           42 nodeCount=1.87k
+BM_TRAVERSE<cereal_bench>                                        160 ms          160 ms           44 nodeCount=1.87k
+BM_TRAVERSE<fbs_bench>                                           180 ms          180 ms           39 nodeCount=1.87k
+BM_TRAVERSE<capnp_bench>                                         338 ms          338 ms           20 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_offset_slim_bench>        184 ms          184 ms           41 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_offset_bench>             164 ms          164 ms           42 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_raw_bench>                193 ms          193 ms           37 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<fbs_bench>                      186 ms          186 ms           39 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cereal_bench>                   453 ms          453 ms           15 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<capnp_bench>                    339 ms          339 ms           21 nodeCount=1.87k
+
+
+Intel(R) Core(TM) i7-6850K CPU @ 3.60GHz, Clang 7
+---------------------------------------------------------------------------------------------------------------------
+Benchmark                                                          Time             CPU   Iterations UserCounters...
+---------------------------------------------------------------------------------------------------------------------
+BM_SERIALIZE<capnp_bench>                                        101 ms          101 ms           70 size=50.5133M
+BM_SERIALIZE<cista_offset_slim_bench>                           58.9 ms         58.9 ms          118 size=25.3196M
+BM_SERIALIZE<cereal_bench>                                       306 ms          306 ms           22 size=37.8322M
+BM_SERIALIZE<fbs_bench>                                         2358 ms         2358 ms            3 size=189.009M
+BM_SERIALIZE<cista_raw_bench>                                   3415 ms         3415 ms            2 size=176.396M
+BM_SERIALIZE<cista_offset_bench>                                3638 ms         3638 ms            2 size=176.396M
+BM_SAFE_DESERIALIZE<capnp_bench>                               0.001 ms        0.001 ms     11247789
+BM_SAFE_DESERIALIZE<cista_offset_slim_bench>                   0.048 ms        0.048 ms       167487
+BM_SAFE_DESERIALIZE<fbs_bench>                                  71.2 ms         71.2 ms           99
+BM_SAFE_DESERIALIZE<cista_offset_bench>                         57.3 ms         57.3 ms          142
+BM_SAFE_DESERIALIZE<cista_raw_bench>                            52.7 ms         52.7 ms          133
+BM_SAFE_DESERIALIZE<cereal_bench>                                210 ms          210 ms           33
+BM_FAST_DESERIALIZE<cista_raw_bench>                            16.7 ms         16.7 ms          419
+BM_TRAVERSE<cista_raw_bench>                                    97.6 ms         97.6 ms           68 nodeCount=1.87k
+BM_TRAVERSE<cista_offset_slim_bench>                             119 ms          119 ms           62 nodeCount=1.87k
+BM_TRAVERSE<cista_offset_bench>                                  118 ms          118 ms           57 nodeCount=1.87k
+BM_TRAVERSE<cereal_bench>                                        109 ms          109 ms           64 nodeCount=1.87k
+BM_TRAVERSE<fbs_bench>                                           111 ms          111 ms           61 nodeCount=1.87k
+BM_TRAVERSE<capnp_bench>                                         343 ms          343 ms           25 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_offset_slim_bench>        118 ms          118 ms           56 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_offset_bench>             120 ms          120 ms           56 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_raw_bench>                116 ms          116 ms           61 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<fbs_bench>                      119 ms          119 ms           59 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cereal_bench>                   350 ms          350 ms           20 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<capnp_bench>                    335 ms          335 ms           21 nodeCount=1.87k
+
+
 $ time ninja cista-compile-time
 [1/2] Building CXX object CMakeFiles/cista-compile-time.dir/src/cista.cc.o
         1.26 real         1.19 user         0.06 sys
