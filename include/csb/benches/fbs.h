@@ -59,7 +59,10 @@ struct fbs_bench {
   }
 
   void deserialize() {
-    auto v = flatbuffers::Verifier{fbb_.GetBufferPointer(), fbb_.GetSize()};
+    auto v = flatbuffers::Verifier{
+        fbb_.GetBufferPointer(), fbb_.GetSize(),
+        std::numeric_limits<flatbuffers::uoffset_t>::max(),
+        std::numeric_limits<flatbuffers::uoffset_t>::max(), true};
     if (!graph::VerifyGraphBuffer(v)) {
       throw std::runtime_error("fbs buffer verify failed");
     }

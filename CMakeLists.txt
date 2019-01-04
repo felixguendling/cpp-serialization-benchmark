@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.10)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(GRAPH_SIZE 725 CACHE STRING  "Node count")
-set(CONNECTEDNESS 90 CACHE STRING "To how many nodes is a node connected [0.0-1.0]")
+set(GRAPH_SIZE 1870 CACHE STRING "Node count")
+set(CONNECTEDNESS 90 CACHE STRING "To how many nodes is a node connected [0-100]")
 configure_file(include/csb/graph_constants.h.in graph_constants.h)
 
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "disable tests" FORCE)
@@ -56,10 +56,10 @@ target_include_directories(cpp-serialization-benchmark PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-add_executable(cista-compile-time src/cista.cc)
+add_executable(cista-compile-time EXCLUDE_FROM_ALL src/cista.cc)
 target_link_libraries(cista-compile-time cista)
 
-add_executable(capnp-compile-time
+add_executable(capnp-compile-time EXCLUDE_FROM_ALL
   ${CMAKE_CURRENT_BINARY_DIR}/graph.capnp.h
   ${CMAKE_CURRENT_BINARY_DIR}/graph.capnp.c++
   src/capnp.cc)
@@ -67,10 +67,10 @@ target_link_libraries(capnp-compile-time capnp)
 target_include_directories(capnp-compile-time PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(cereal-compile-time src/cereal.cc)
+add_executable(cereal-compile-time EXCLUDE_FROM_ALL src/cereal.cc)
 target_link_libraries(cereal-compile-time cereal)
 
-add_executable(fbs-compile-time
+add_executable(fbs-compile-time EXCLUDE_FROM_ALL
   src/fbs.cc
   ${CMAKE_CURRENT_BINARY_DIR}/graph_generated.h
 )
