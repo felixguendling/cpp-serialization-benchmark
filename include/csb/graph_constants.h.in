@@ -3,7 +3,7 @@
 namespace csb {
 
 #define GRAPH_SIZE @GRAPH_SIZE@
-#define CONNECTEDNESS @CONNECTEDNESS@ / 100.0
+#define CONNECTEDNESS (@CONNECTEDNESS@ / 100.0)
 
 // Node IDs: 11 bits (2048 max)
 // Edge weights: 10 bits (1024 max)
