@@ -1,4 +1,4 @@
-#include "cista.h"
+#include "cista/serialization.h"
 
 struct slim_graph {
   using string_t = cista::offset::string;
@@ -11,7 +11,10 @@ struct slim_graph {
 
   template <typename Ctx>
   friend void serialize(Ctx&, edge const*, cista::offset_t const) {}
-  friend void deserialize(cista::deserialization_context const&, edge*) {}
+
+  template <typename Ctx, typename T>
+  friend void deserialize(Ctx const& c, edge*) {}
+
   friend void unchecked_deserialize(cista::deserialization_context const&,
                                     edge*) {}
 

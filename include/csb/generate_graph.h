@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+#include <string>
 
 #include "csb/graph.h"
 
@@ -19,12 +20,12 @@ inline Graph generate_graph(unsigned const size, double const connectedness) {
   auto name = [&rng, char_dist = std::uniform_int_distribution<char>{'a', 'z'},
                length_dist =
                    std::uniform_int_distribution<uint16_t>{5, 20}]() mutable {
-    typename Graph::string_t s;
+    std::string s;
     s.resize(length_dist(rng));
     for (auto& c : s) {
       c = char_dist(rng);
     }
-    return s;
+    return typename Graph::string_t{s};
   };
   auto edge_weight = [&rng, dist = std::uniform_int_distribution<uint16_t>{
                                 0, 1000}]() mutable { return dist(rng); };

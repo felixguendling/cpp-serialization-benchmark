@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cista.h"
+#include "cista/serialization.h"
 
 #include "csb/cista_offset_graph.h"
 #include "csb/traverse_graph.h"

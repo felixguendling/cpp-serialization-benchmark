@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cista.h"
+#include "cista/serialization.h"
 
 #include "csb/generate_graph.h"
 #include "csb/graph.h"
@@ -18,7 +18,7 @@ struct cista_offset_make_unique {
 
 using cista_offset_graph =
     csb::basic_graph<cista::offset::vector, cista::offset::unique_ptr,
-                     cista::offset_ptr, cista::offset::string,
+                     cista::offset::ptr, cista::offset::string,
                      cista_offset_make_unique>;
 
 static auto const CISTA_OFFSET_GRAPH =

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cista.h"
+#include "cista/serialization.h"
 
 #include "csb/generate_graph.h"
 #include "csb/graph.h"

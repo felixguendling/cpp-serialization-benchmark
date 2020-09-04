@@ -1,25 +1,12 @@
 #pragma once
 
-#include "cista.h"
+#include "cista/serialization.h"
 
 #include "csb/generate_graph.h"
 #include "csb/std_graph.h"
 #include "csb/traverse_graph.h"
 
 #include "graph_constants.h"
-
-namespace cista::offset {
-
-template <typename Container, typename UnaryOperation>
-inline auto to_vec(Container const& c, UnaryOperation&& op)
-    -> vector<decltype(op(*std::begin(c)))> {
-  vector<decltype(op(*std::begin(c)))> v;
-  v.reserve(std::distance(std::begin(c), std::end(c)));
-  std::transform(std::begin(c), std::end(c), std::back_inserter(v), op);
-  return v;
-}
-
-}  // namespace cista::offset
 
 namespace csb {
 
@@ -34,9 +21,8 @@ struct slim_graph {
 
   template <typename Ctx>
   friend void serialize(Ctx&, edge const*, cista::offset_t const) {}
-  friend void deserialize(cista::deserialization_context const&, edge*) {}
-  friend void unchecked_deserialize(cista::deserialization_context const&,
-                                    edge*) {}
+  template <typename Ctx>
+  friend void deserialize(Ctx const&, edge*) {}
 
   struct node {
     uint16_t id_;
