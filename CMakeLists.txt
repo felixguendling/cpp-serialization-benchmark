@@ -55,6 +55,7 @@ target_include_directories(cpp-serialization-benchmark PUBLIC
   include
   ${CMAKE_CURRENT_BINARY_DIR}
 )
+target_compile_features(cpp-serialization-benchmark PUBLIC cxx_std_17)
 
 add_executable(cista-compile-time EXCLUDE_FROM_ALL src/cista.cc)
 target_link_libraries(cista-compile-time cista)
