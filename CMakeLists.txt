@@ -1,6 +1,7 @@
 project(cpp-serialization-benchmark)
 cmake_minimum_required(VERSION 3.10)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 20)
 
 set(GRAPH_SIZE 1870 CACHE STRING "Node count")
