@@ -40,19 +40,19 @@ jobs:
             mode: Release
             cxxflags: -stdlib=libc++
             os: macos-latest
-          - name: GCC 10 Release
-            cxx: g++-10
-            cc: gcc-10
+          - name: GCC 11 Release
+            cxx: g++-11
+            cc: gcc-11
             mode: Release
             os: ubuntu-20.04
-          - name: GCC 10 Release
-            cxx: g++-10
-            cc: gcc-10
+          - name: GCC 11 Release
+            cxx: g++-11
+            cc: gcc-11
             mode: Release
             os: ubuntu-20.04
-          - name: GCC 10 Debug
-            cxx: g++-10
-            cc: gcc-10
+          - name: GCC 11 Debug
+            cxx: g++-11
+            cc: gcc-11
             mode: Debug
             os: ubuntu-20.04
           - name: Clang 12 Release
@@ -92,7 +92,7 @@ jobs:
       # ==== INSTALL ====
       - name: Update APT
         if: matrix.config.os != 'macos-latest'
-        run: sudo apt-get update
+        run: sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update
 
       - name: Install LLVM
         if: matrix.config.os != 'macos-latest' && matrix.config.cc == 'clang-12'
@@ -103,12 +103,12 @@ jobs:
           rm llvm.sh
           sudo apt-get install -y --no-install-recommends libc++-12-dev libc++abi-12-dev clang-tidy-12 libunwind-12-dev llvm-12
       - name: Install Valgrind
-        if: matrix.config.mode == 'Debug' && matrix.config.cc == 'gcc-10'
+        if: matrix.config.mode == 'Debug' && matrix.config.cc == 'gcc-11'
         run: sudo apt-get install -y --no-install-recommends valgrind
 
       - name: Install Ninja
         if: matrix.config.os != 'macos-latest'
-        run: sudo apt-get install -y --no-install-recommends ninja-build
+        run: sudo apt-get install -y --no-install-recommends ninja-build g++-11
 
       # ==== BUILD ====
       - name: CMake
@@ -134,5 +134,5 @@ jobs:
 
       # ==== VALGRIND ====
       - name: Run Tests Valgrind
-        if: matrix.config.mode == 'Debug' && matrix.config.cc == 'gcc-10'
+        if: matrix.config.mode == 'Debug' && matrix.config.cc == 'gcc-11'
         run: valgrind --error-exitcode=1 --show-reachable=yes --leak-check=full ./build/cpp-serialization-benchmark
