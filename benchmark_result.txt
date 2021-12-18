@@ -1,3 +1,47 @@
+2021-12-18 19:41:55
+Running ./cpp-serialization-benchmark
+Run on (24 X 4950.19 MHz CPU s)
+CPU Caches:
+  L1 Data 32K (x12)
+  L1 Instruction 32K (x12)
+  L2 Unified 512K (x12)
+  L3 Unified 32768K (x2)
+Load Average: 2.73, 2.81, 1.95
+***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
+---------------------------------------------------------------------------------------------------------------------
+Benchmark                                                          Time             CPU   Iterations UserCounters...
+---------------------------------------------------------------------------------------------------------------------
+BM_SERIALIZE<capnp_bench>                                       76.3 ms         76.2 ms            9 size=50.5093M
+BM_SERIALIZE<cista_offset_slim_bench>                           4.52 ms         4.52 ms          133 size=25.317M
+BM_SERIALIZE<cereal_bench>                                       216 ms          216 ms            3 size=37.829M
+BM_SERIALIZE<fbs_bench>                                         1409 ms         1409 ms            1 size=62.998M
+BM_SERIALIZE<cista_raw_bench>                                    650 ms          650 ms            1 size=176.378M
+BM_SERIALIZE<cista_offset_bench>                                 659 ms          659 ms            1 size=176.378M
+BM_SERIALIZE<zpp_bits_bench>                                    4.14 ms         4.14 ms          169 size=37.8066M
+BM_SAFE_DESERIALIZE<capnp_bench>                               0.000 ms        0.000 ms      3058231
+BM_SAFE_DESERIALIZE<cista_offset_slim_bench>                   0.165 ms        0.165 ms         4247
+BM_SAFE_DESERIALIZE<fbs_bench>                                  35.7 ms         35.7 ms           20
+BM_SAFE_DESERIALIZE<cista_offset_bench>                          248 ms          248 ms            3
+BM_SAFE_DESERIALIZE<cista_raw_bench>                             256 ms          256 ms            3
+BM_SAFE_DESERIALIZE<cereal_bench>                                111 ms          111 ms            6
+BM_SAFE_DESERIALIZE<zpp_bits_bench>                             6.58 ms         6.58 ms          102
+BM_FAST_DESERIALIZE<cista_raw_bench>                            24.8 ms         24.8 ms           28
+BM_TRAVERSE<cista_raw_bench>                                    66.0 ms         66.0 ms           11 nodeCount=1.87k
+BM_TRAVERSE<cista_offset_slim_bench>                            66.5 ms         66.5 ms           11 nodeCount=1.87k
+BM_TRAVERSE<cista_offset_bench>                                 66.6 ms         66.6 ms           11 nodeCount=1.87k
+BM_TRAVERSE<cereal_bench>                                       66.7 ms         66.7 ms           11 nodeCount=1.87k
+BM_TRAVERSE<fbs_bench>                                          74.9 ms         74.9 ms            7 nodeCount=1.87k
+BM_TRAVERSE<capnp_bench>                                         216 ms          216 ms            3 nodeCount=1.87k
+BM_TRAVERSE<zpp_bits_bench>                                     64.7 ms         64.6 ms           11 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_offset_slim_bench>       66.2 ms         66.2 ms           11 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_offset_bench>            66.1 ms         66.1 ms           11 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cista_raw_bench>               90.5 ms         90.4 ms            8 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<fbs_bench>                     74.8 ms         74.8 ms            7 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<cereal_bench>                   174 ms          174 ms            4 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<capnp_bench>                    221 ms          221 ms            3 nodeCount=1.87k
+BM_FAST_DESERIALIZE_AND_TRAVERSE<zpp_bits_bench>                71.9 ms         71.9 ms            9 nodeCount=1.87k
+
+
 2019-01-02 13:35:44
 Running ./cpp-serialization-benchmark
 Run on (8 X 2000 MHz CPU s)
