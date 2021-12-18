@@ -52,7 +52,7 @@ Cista++ `offset` describes the "slim" variant (where the edges use indices to re
 
 Exact results can be found [here](https://github.com/felixguendling/cpp-serialization-benchmark/blob/master/benchmark_result.txt).
 
-Benchmarks were run on Mac OS X, compiled with Clang 7.
+Benchmarks were run on Ubuntu 20.04 on an AMD Ryzen 9 5900X, compiled with GCC 11.
 
 
 ## Compilation Times
