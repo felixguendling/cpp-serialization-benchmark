@@ -92,7 +92,7 @@ jobs:
       # ==== INSTALL ====
       - name: Update APT
         if: matrix.config.os != 'macos-latest'
-        run: sudo apt-get update
+        run: sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update
 
       - name: Install LLVM
         if: matrix.config.os != 'macos-latest' && matrix.config.cc == 'clang-12'
@@ -108,7 +108,7 @@ jobs:
 
       - name: Install Ninja
         if: matrix.config.os != 'macos-latest'
-        run: sudo apt-get install -y --no-install-recommends ninja-build
+        run: sudo apt-get install -y --no-install-recommends ninja-build g++-11
 
       # ==== BUILD ====
       - name: CMake
