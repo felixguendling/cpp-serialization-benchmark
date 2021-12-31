@@ -16,13 +16,9 @@ struct zpp_bits_graph {
   struct edge {
     uint16_t from_, to_;
     uint16_t weight_;
-
-    using serialize = zpp::bits::members<3>;
   };
 
   struct node {
-    using serialize = zpp::bits::members<4>;
-
     uint16_t id_;
     std::string name_;
     std::vector<edge> out_;
